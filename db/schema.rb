@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_062736) do
+ActiveRecord::Schema.define(version: 2020_09_14_064651) do
 
-  create_table "sales", force: :cascade do |t|
+  create_table "Sales", force: :cascade do |t|
     t.date "date"
-    t.time "time"
+    t.integer "time"
     t.integer "price"
     t.integer "transactions"
     t.datetime "created_at", precision: 6, null: false
