@@ -1,0 +1,216 @@
+<% provide(:title, "Sales") %>
+
+<% # header %>
+
+<% # graph %>
+<%= line_chart [
+  {name: "Series A", data: 1 },
+  {name: "Series B", data: 2 }
+], xtitle: "時間", ytitle: "売上" %>
+
+<% # 当日の実表 %>
+<div>
+  <p>当日の売上</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="center" scope="col">時間</th>
+        <% (7..22).each do |num| %>
+          <th class= "center" scope="col"><%= num %></th>
+        <% end %>
+        <th class="center" scope="col">合計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="center" scope="row">件数</th>
+        <% total_transactions = [] %>
+        <% @today_sale.each do |pertime| %>
+          <td class="rigth"><%= pertime[:transactions] %></td>
+          <% total_transactions << pertime[:transactions] %>
+        <% end %>
+        <td class="rigth"><%= total_transactions.sum %></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">単価</th>
+        <% total_price = [] %>
+        <% @today_sale.each do |pertime| %>
+          <td class="rigth"><%= pertime[:price] %></td>
+          <% total_price << pertime[:price] %>
+        <% end %>
+        <td class="rigth"><%= total_price.sum %></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">時間別売上</th>
+        <% total = [] %>
+        <% @today_sale.each do |pertime| %>
+          <td class="rigth"><%= pertime[:transactions] * pertime[:price] %></td>
+          <% total << pertime[:transactions] * pertime[:price] %>
+        <% end %> 
+        <td class="rigth"><%= total.sum %></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">累計売上</th>
+        <% total = 0%>
+        <% @today_sale.each do |pertime| %>
+          <td class="rigth"><%= total += pertime[:transactions] * pertime[:price] %></td>
+        <% end %>
+        <td class="rigth"><%= total %></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+</div>
+
+
+<% # 当日の売上目標 %>
+<div>
+  <p>当日の売上目標</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="center" scope="col">時間</th>
+        <% (7..22).each do |num| %>
+          <th class= "center" scope="col"><%= num %></th>
+        <% end %>
+        <th class="center" scope="col">合計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="center" scope="row">件数</th>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">単価</th>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">時間別売上</th>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">累計売上</th>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<% # 当日の目標と実利の差異 %>
+<div>
+  <p>当日目標と売上の差異</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="center" scope="col">時間</th>
+        <% (7..22).each do |num| %>
+          <th class= "center" scope="col"><%= num %></th>
+        <% end %>
+        <th class="center" scope="col">合計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="center" scope="row">件数</th>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">単価</th>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">時間別売上</th>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">累計売上</th>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<% # 前日の売上 %>
+<div>
+  <p>任意の日の売上</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="center" scope="col">時間</th>
+        <% (7..22).each do |num| %>
+          <th class= "center" scope="col"><%= num %></th>
+        <% end %>
+        <th class="center" scope="col">合計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="center" scope="row">件数</th>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">単価</th>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">時間別売上</th>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">累計売上</th>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<% # 前日の売上との差異 %>
+<div>
+  <p>任意の日と当日の売上の差異</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="center" scope="col">時間</th>
+        <% (7..22).each do |num| %>
+          <th class= "center" scope="col"><%= num %></th>
+        <% end %>
+        <th class="center" scope="col">合計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="center" scope="row">件数</th>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">単価</th>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">時間別売上</th>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th class="center" scope="row">累計売上</th>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
