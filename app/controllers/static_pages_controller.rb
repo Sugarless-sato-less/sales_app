@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
   def home 
     @data_of_today = data_of_a_day("2020-9-2")
     @sample_day = data_of_a_day(Date.yesterday)
-    
+    @seven = @sample_day.find_by(time: 7)
 
     # @today_price = some_per_time(:price)
     # @today_transactions = some_per_time(:transactions, day)
