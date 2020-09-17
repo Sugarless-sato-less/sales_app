@@ -1,0 +1,133 @@
+<!--<% # 任意の日 %>
+<div>
+  <p>任意の日の売上</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="center" scope="col">時間</th>
+        <% (7..22).each do |num| %>
+          <th class= "center" scope="col"><%= num %></th>
+        <% end %>
+        <th class="center" scope="col">合計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="center" scope="row">件数</th>
+        <% total = [] %>
+        <% (7..22).each do |num| %>
+          <td class="rigth"><%= @data_of_today_target.find_by(time: num)[:transactions] %></td>
+          <% total << @data_of_today_target.find_by(time: num)[:transactions] %>
+        <% end %>
+        <td class="rigth"><%= total.sum %></td>
+      </tr>
+      <tr>
+        <th class="center" scope="row">単価</th>
+        <% total = [] %>
+        <% (7..22).each do |num| %>
+          <td class="rigth"><%= @data_of_today_target.find_by(time: num)[:price] %></td>
+          <% total << @data_of_today_target.find_by(time: num)[:price] %>
+        <% end %>
+        <td class="rigth"><%= total.sum / total.length %></td>
+      </tr>
+      <tr>
+        <th class="center" scope="row">時間別合計金額</th>
+        <% total = [] %>
+        <% (7..22).each do |num| %>
+          <td class="rigth"><%= @data_of_today_target.find_by(time: num)[:price] *  @data_of_today_target.find_by(time: num)[:transactions] %></td>
+          <% total << @data_of_today_target.find_by(time: num)[:price] *  @data_of_today_target.find_by(time: num)[:transactions] %>
+        <% end %>
+        <td class="rigth"><%= total.sum / total.length %></td>
+      </tr>
+      <tr>
+        <th class="center" scope="row">累計金額</th>
+        <% total = [] %>
+        <% (7..22).each do |num| %>
+          <% total << @data_of_today_target.find_by(time: num)[:price] *  @data_of_today_target.find_by(time: num)[:transactions] %>
+          <td class="rigth"><%= total.sum %></td>
+        <% end %>
+        <td class="rigth"><%= total.sum %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<% #任意の日と当日の差異 %>
+<%= line_chart [
+  {name: "Series A", data: 1 },
+  {name: "Series B", data: 2 }
+], xtitle: "時間", ytitle: "売上" %>
+<div>
+  <p>今日と任意の日の売上の差異</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="center" scope="col">時間</th>
+        <% (7..22).each do |num| %>
+          <th class= "center" scope="col"><%= num %></th>
+        <% end %>
+        <th class="center" scope="col">合計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="center" scope="row">件数</th>
+        <% total = [] %>
+        <% (7..22).each do |num| %>
+          <% balance = @data_of_today.find_by(time: num)[:transactions] - @data_of_today_target.find_by(time: num)[:transactions]%>
+          <% if balance < 0 %>
+            <td class="rigth text-danger"><%= balance %></td>
+          <%else%>
+            <td class="rigth"><%= balance %></td>
+          <% end %>
+          <% total << balance %>
+        <% end %>
+        <td class="rigth"><%= total.sum %></td>
+      </tr>
+      <tr>
+        <th class="center" scope="row">単価</th>
+        <% total = [] %>
+        <% (7..22).each do |num| %>
+          <% balance = @data_of_today.find_by(time: num)[:price] - @data_of_today_target.find_by(time: num)[:price] %>
+          <% if balance < 0 %>
+            <td class="rigth text-danger"><%= balance %></td>
+          <%else%>
+            <td class="rigth"><%= balance %></td>
+          <% total << balance %>
+          <% end %>
+        <% end %>
+        <td class="rigth"><%= total.sum / total.length %></td>
+      </tr>
+      <tr>
+        <th class="center" scope="row">時間別合計金額</th>
+        <% total = [] %>
+        <% (7..22).each do |num| %>
+          <% today = @data_of_today.find_by(time: num)[:price] *  @data_of_today.find_by(time: num)[:transactions] %>
+          <% target = @data_of_today_target.find_by(time: num)[:price] *  @data_of_today_target.find_by(time: num)[:transactions] %>
+          <% if today - target < 0 %>
+            <td class="rigth text-danger"><%= today - target %></td>
+          <% else %>
+            <td class="rigth"><%= today - target %></td>
+          <% end %>
+          <% total << today - target %>
+        <% end %>
+        <td class="rigth"><%= total.sum / total.length %></td>
+      </tr>
+      <tr>
+        <th class="center" scope="row">累計金額</th>
+        <% total = [] %>
+        <% (7..22).each do |num| %>
+          <% today = @data_of_today.find_by(time: num)[:price] *  @data_of_today.find_by(time: num)[:transactions] %>
+          <% target = @data_of_today_target.find_by(time: num)[:price] *  @data_of_today_target.find_by(time: num)[:transactions] %>
+          <% total << today - target %>
+          <% if total.sum < 0 %>
+            <td class="rigth text-danger"><%= total.sum %></td>
+          <% else %>
+            <td class="rigth"><%= total.sum %></td>
+          <% end %>
+        <% end %>
+        <td class="rigth"><%= total.sum %></td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->

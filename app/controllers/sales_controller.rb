@@ -1,11 +1,11 @@
 class SalesController < ApplicationController
   include SalesHelper
   def home
-    @data_of_today = data_of_a_day(Date.today)
-    @sample_day = data_of_a_day(Date.yesterday)
+    @today = data_of_a_day(Date.today)
     gon.data_of_today = @data_of_today
-    
-    # @date_of_today_target = data_of_target()
+    @target = data_of_target()
+    gon.target = @target.sort_by { |a| a[:time] }
+    @any_day = data_of_a_day()
   end
 
   def new
