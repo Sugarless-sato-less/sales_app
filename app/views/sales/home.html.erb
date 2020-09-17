@@ -4,7 +4,7 @@
 
 <% # graph %>
 
-  <h1>折れ線グラフ</h1>
+  <h1>当日の実利と目標</h1>
   <canvas id="myLineChart"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 
@@ -116,7 +116,9 @@
     var btn = document.getElementById("btn")
     var myfunc = function(){
       var time = document.getElementById("time").value ;
-      location.href = `/sales/${time}/edit`
+      var num = time - 7
+      var id = gon.data_of_today[num]["id"]
+      location.href = `/sales/${id}/edit`
     }
     btn.onclick = myfunc;
   </script>
@@ -174,7 +176,6 @@
       </tr>
     </tbody>
   </table>
-  <%= link_to "データを編集する", edit_sale_path(@sample_day)%>
 </div>
 
 <% # 今日の目標と実利の差異 %>

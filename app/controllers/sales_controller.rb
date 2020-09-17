@@ -3,7 +3,9 @@ class SalesController < ApplicationController
   def home
     @data_of_today = data_of_a_day(Date.today)
     @sample_day = data_of_a_day(Date.yesterday)
-    @date_of_today_target = data_of_target()
+    gon.data_of_today = @data_of_today
+    
+    # @date_of_today_target = data_of_target()
   end
 
   def new

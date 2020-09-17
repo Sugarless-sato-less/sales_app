@@ -3,7 +3,7 @@ module SalesHelper
     return Sale.where(date: day)
   end
 
-  def data_of_target(day = Date.today)
-    return Target.where(date: day)
-  end
+  # def data_of_target(day = Date.today)
+  #   return Target.where(date: day)
+  # end
 end
