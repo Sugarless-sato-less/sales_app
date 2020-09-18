@@ -1,0 +1,84 @@
+<div>
+  <h2>今日の目標</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="center" scope="col">時間</th>
+        <% (@target.length).times do |num| %>
+          <th class= "center" scope="col"><%= num + 7 %></th>
+        <% end %>
+        <th class="center" scope="col">合計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="center" scope="row">件数</th>
+        <% total = [] %>
+        <% (7..22).each do |num| %>
+          <% unless @target.find_by(time: num).nil? %>
+            <td class="rigth" contentEditable = "true"><%= @target.find_by(time: num)[:transactions] %></td>
+            <% total << @target.find_by(time: num)[:transactions] %>
+          <% end %>
+        <% end %>
+        <td class="rigth"><%= total.sum %></td>
+      </tr>
+      <tr>
+        <th class="center" scope="row">単価</th>
+        <% total = [] %>
+        <% (7..22).each do |num| %>
+          <% unless @target.find_by(time: num).nil? %>
+            <td class="rigth" contentEditable = "true"><%= @target.find_by(time: num)[:price] %></td>
+            <% total << @target.find_by(time: num)[:price] %>
+          <% end %>
+        <% end %>
+        <% unless total.length == 0 %>
+          <td class="rigth"><%= total.sum / total.length %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <th class="center" scope="row">時間別合計金額</th>
+        <% total = [] %>
+        <% (7..22).each do |num| %>
+          <% unless @target.find_by(time: num).nil? %>
+            <td class="rigth"><%= @target.find_by(time: num)[:price] *  @target.find_by(time: num)[:transactions] %></td>
+            <% total << @target.find_by(time: num)[:price] *  @target.find_by(time: num)[:transactions] %>
+          <% end %>
+        <% end %>
+        <% unless total.length == 0 %>
+          <td class="rigth"><%= total.sum / total.length %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <th class="center" scope="row">累計金額</th>
+        <% total = [] %>
+        <% (7..22).each do |num| %>
+          <% unless @target.find_by(time: num).nil? %>
+            <% total << @target.find_by(time: num)[:price] *  @target.find_by(time: num)[:transactions] %>
+            <td class="rigth"><%= total.sum %></td>
+          <% end %>
+        <% end %>
+        <td class="rigth"><%= total.sum %></td>
+      </tr>
+    </tbody>
+  </table>
+  <input type="submit" id="new" value="新規作成">
+  <script>
+    var btn_target = document.getElementById("new")
+    var myfunc_target = function(){
+      location.href = `/targets/new`
+    }
+    btn_target.onclick = myfunc_target;
+  </script>
+  <input type="number" id="time_target" value="">
+  <input type="submit" id="tar" value="確定">
+  <script>
+    var tar = document.getElementById("tar")
+    var targetfunc = function(){
+      var time = document.getElementById("time_target").value ;
+      var num = time - 7
+      var id = gon.target[num]["id"]
+      location.href = `/targets/${id}/edit`
+    }
+    tar.onclick = targetfunc;
+  </script>
+</div>
