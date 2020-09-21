@@ -1,8 +1,10 @@
 class SalesController < ApplicationController
+  before_action :logged_in_user, only: [:edit, :update, :home]
   include SalesHelper
+  include SessionsHelper
   def home
     @today = data_of_a_day(Date.today)
-    gon.data_of_today = @data_of_today
+    gon.today = @today
     @target = data_of_target()
     gon.target = @target.sort_by { |a| a[:time] }
     @any_day = data_of_a_day()
@@ -33,7 +35,13 @@ class SalesController < ApplicationController
   private
 
     def sale_params
-      params.require(:sale).permit(:price, :transactions)
+      params.require(:sale).permit(:price, :transactions, :total)
+    end
+
+    def logged_in_user
+      unless logged_in?
+        redirect_to login_url
+      end
     end
   
 end

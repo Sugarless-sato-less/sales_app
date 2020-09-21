@@ -4,7 +4,7 @@
     <thead>
       <tr>
         <th class="center" scope="col">時間</th>
-        <% (@target.length).times do |num| %>
+        <% 16.times do |num| %>
           <th class= "center" scope="col"><%= num + 7 %></th>
         <% end %>
         <th class="center" scope="col">合計</th>
@@ -61,24 +61,26 @@
       </tr>
     </tbody>
   </table>
-  <input type="submit" id="new" value="新規作成">
-  <script>
-    var btn_target = document.getElementById("new")
-    var myfunc_target = function(){
-      location.href = `/targets/new`
-    }
-    btn_target.onclick = myfunc_target;
-  </script>
-  <input type="number" id="time_target" value="">
-  <input type="submit" id="tar" value="確定">
-  <script>
-    var tar = document.getElementById("tar")
-    var targetfunc = function(){
-      var time = document.getElementById("time_target").value ;
-      var num = time - 7
-      var id = gon.target[num]["id"]
-      location.href = `/targets/${id}/edit`
-    }
-    tar.onclick = targetfunc;
-  </script>
+  <% if current_user.admin? %>
+    <input type="submit" id="new" value="新規作成">
+    <script>
+      var btn_target = document.getElementById("new")
+      var myfunc_target = function(){
+        location.href = `/targets/new`
+      }
+      btn_target.onclick = myfunc_target;
+    </script>
+    <input type="number" id="time_target" value="">
+    <input type="submit" id="tar" value="確定">
+    <script>
+      var tar = document.getElementById("tar")
+      var targetfunc = function(){
+        var time_target = document.getElementById("time_target").value ;
+        var num = time_target - 7
+        var id = gon.target[num]["id"]
+        location.href = `/targets/${id}/edit`
+      }
+      tar.onclick = targetfunc;
+    </script>
+  <% end %>
 </div>

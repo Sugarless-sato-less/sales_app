@@ -4,7 +4,7 @@
     <thead>
       <tr>
         <th class="center" scope="col">時間</th>
-        <% (@today.length).times do |num| %>
+        <% 16.times do |num| %>
           <th class= "center" scope="col"><%= num + 7 %></th>
         <% end %>
         <th class="center" scope="col">合計</th>
@@ -33,8 +33,8 @@
         <th class="center" scope="row">時間別合計金額</th>
         <% total = [] %>
         <% (7..22).each do |num| %>
-          <td class="rigth"><%= @today.find_by(time: num)[:price] *  @today.find_by(time: num)[:transactions] %></td>
-          <% total << @today.find_by(time: num)[:price] *  @today.find_by(time: num)[:transactions] %>
+          <td class="rigth"><%= @today.find_by(time: num)[:total] %></td>
+          <% total << @today.find_by(time: num)[:total] %>
         <% end %>
         <td class="rigth"><%= total.sum / total.length %></td>
       </tr>
@@ -42,23 +42,27 @@
         <th class="center" scope="row">累計金額</th>
         <% total = [] %>
         <% (7..22).each do |num| %>
-          <% total << @today.find_by(time: num)[:price] *  @today.find_by(time: num)[:transactions] %>
+          <% total << @today.find_by(time: num)[:total] %>
           <td class="rigth"><%= total.sum %></td>
         <% end %>
         <td class="rigth"><%= total.sum %></td>
       </tr>
     </tbody>
   </table>
-  <input type="number" id="time" value="">
-  <input type="submit" id="btn" value="確定">
-  <script>
-    var btn = document.getElementById("btn")
-    var myfunc = function(){
-      var time = document.getElementById("time").value ;
-      var num = time - 7
-      var id = gon.today[num]["id"]
-      location.href = `/sales/${id}/edit`
-    }
-    btn.onclick = myfunc;
-  </script>
+  <% if current_user.admin? %>
+    <input type="number" id="time" value="">
+    <input type="submit" id="btn" value="確定">
+    <script>
+      var btn = document.getElementById("btn")
+      var myfunc = function(){
+        var time = document.getElementById("time").value ;
+        var num = time - 7
+        var id = gon.today[num]["id"]
+        location.href = `/sales/${id}/edit`
+      }
+      btn.onclick = myfunc;
+    </script>
+  <% end %>
+
+  
 </div>

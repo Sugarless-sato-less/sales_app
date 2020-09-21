@@ -3,20 +3,35 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_with model: @target do |f| %>
-      <%= f.label :date %>
+      <%= f.label :date, "日付" %>
       <%= f.date_field :date, class: 'form-control', value: Date.today %>
 
-      <%= f.label :time %>
+      <%= f.label :time, "時間帯" %>
       <%= f.number_field :time, class: 'form-control' %>
 
-      <%= f.label :price %>
-      <%= f.number_field :price, class: 'form-control' %>
+      <%= f.label :price, "単価"%>
+      <%= f.number_field :price, class: 'form-control', id: 'price' %>
 
-      <%= f.label :transactions %>
-      <%= f.number_field :transactions, class: 'form-control' %>
+      <%= f.label :transactions, "件数" %>
+      <%= f.number_field :transactions, class: 'form-control', id: 'transactions' %>
+
+      <%= f.label :total, "時間帯別売上" %>
+      <%= f.number_field :total, class: 'form-control', id: "total" %>
 
       <%= f.submit "確定", class: "btn btn-primary" %>
     <% end %>
     <%= link_to 'ホーム', root_path %>
+    <script>
+      $('#transactions').change(function() {
+        var s = $('#price').val();
+        var a = $('#transactions').val();
+        var si = parseInt(s);
+        var sa = parseInt(a);
+
+        var total = si * sa
+
+        $('#total').val(total)
+      });
+    </script>
   </div>
 </div>

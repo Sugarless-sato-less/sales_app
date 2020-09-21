@@ -29,6 +29,6 @@ class TargetsController < ApplicationController
   private
 
     def target_params
-      params.require(:target).permit(:date, :time, :price, :transactions)
+      params.require(:target).permit(:date, :time, :price, :transactions, :total)
     end
 end

@@ -1,15 +1,18 @@
 require 'Date'
+
 100.times do |n|
   date = Date.new(2020,7,1) + n
   16.times do |t|
     time = 7 + t
     price = (650..1200).to_a.sample
     transactions = (30..100).to_a.sample
+    total = price * transactions
     Sale.create!(
       date: date,
       time: time,
       price: price,
-      transactions: transactions
+      transactions: transactions,
+      total: total
     )
   end
 end
@@ -20,12 +23,25 @@ end
     time = 7 + t
     price = (650..1100).to_a.sample
     transactions = (25..80).to_a.sample
+    total = price * transactions
     Target.create!(
       date: date,
       time: time,
       price: price,
-      transactions: transactions
+      transactions: transactions,
+      total: total
     )
   end
 end
+
+User.create!(name: "tencho",
+             password: "password",
+             admin: true)
+
     
+99.times do |n|
+  name  = Faker::Name.name
+  password = "password"
+  User.create!(name:  name,
+               password: password)
+end
