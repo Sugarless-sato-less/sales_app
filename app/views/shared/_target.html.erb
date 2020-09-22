@@ -62,7 +62,7 @@
     </tbody>
   </table>
   <% if current_user.admin? %>
-    <input type="submit" id="new" value="新規作成">
+    <input type="submit" id="new" value="新規作成" class="btn btn-primary">
     <script>
       var btn_target = document.getElementById("new")
       var myfunc_target = function(){
@@ -71,7 +71,7 @@
       btn_target.onclick = myfunc_target;
     </script>
     <input type="number" id="time_target" value="">
-    <input type="submit" id="tar" value="確定">
+    <input type="submit" id="tar" value="確定" class="btn btn-primary">
     <script>
       var tar = document.getElementById("tar")
       var targetfunc = function(){

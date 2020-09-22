@@ -8,6 +8,7 @@ class SalesController < ApplicationController
     @target = data_of_target()
     gon.target = @target.sort_by { |a| a[:time] }
     @any_day = data_of_a_day()
+    gon.any = Sale.new
   end
 
   def new
