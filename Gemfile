@@ -20,6 +20,7 @@ gem 'bootsnap',   '1.4.5', require: false
 gem "chartkick"
 gem 'gon'
 gem 'faker',      '2.1.2'
+gem 'date'
 
 group :development, :test do
   gem 'sqlite3', '1.4.1'
