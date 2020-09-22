@@ -39,9 +39,5 @@ User.create!(name: "tencho",
              admin: true)
 
     
-99.times do |n|
-  name  = Faker::Name.name
-  password = "password"
-  User.create!(name:  name,
-               password: password)
-end
+User.create!(name: "juugyouin",
+             password: "password")
