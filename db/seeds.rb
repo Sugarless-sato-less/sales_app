@@ -29,6 +29,7 @@ end
       transactions: transactions,
       total: total
     )
+  end
 end
 
 
