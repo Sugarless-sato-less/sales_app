@@ -5,6 +5,7 @@ class SalesController < ApplicationController
   def home
     @today = data_of_a_day(Date.today)
     gon.today = @today
+    binding.irb
     @target = data_of_target()
     gon.target = @target.sort_by { |a| a[:time] }
     @any_day = data_of_a_day()

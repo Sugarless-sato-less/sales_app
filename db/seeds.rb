@@ -22,7 +22,7 @@ end
     price = (650..1200).to_a.sample
     transactions = (30..100).to_a.sample
     total = price * transactions
-    Sale.create!(
+    Target.create!(
       date: date,
       time: time,
       price: price,
