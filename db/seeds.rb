@@ -17,23 +17,6 @@
   end
 end
 
-100.times do |n|
-  date = Date.new(2020,9,1) + n
-  16.times do |t|
-    time = 7 + t
-    price = (650..1100).to_a.sample
-    transactions = (25..80).to_a.sample
-    total = price * transactions
-    Target.create!(
-      date: date,
-      time: time,
-      price: price,
-      transactions: transactions,
-      total: total
-    )
-  end
-end
-
 User.create!(name: "tencho",
              password: "password",
              admin: true)
